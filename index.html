@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9">
+    	<title>Explore interactive web maps on ArcGIS Online - A story map presented by Esri</title>
+        <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.0/js/dojo/dijit/themes/tundra/tundra.css">
+        <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.0/js/esri/dijit/css/Popup.css">
+        <link rel="stylesheet" type="text/css" href="css/colorbox.css"/>
+        <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+        <link rel="stylesheet" type="text/css" href="css/popup.css"/>
+        
+        
+        <style type="text/css">
+			.esriSimpleSlider{
+				display:none;
+			}
+		</style>
+
+        <script type="text/javascript">
+            var djConfig = {
+                parseOnLoad: true
+            };
+        </script>
+        <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=3.0compact"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="javascript/jquery.colorbox-min.js"></script>
+        <script type="text/javascript" src="javascript/maps.js"></script>
+        <script type="text/javascript" src="javascript/layout.js"></script>
+        <script type="text/javascript">
+            var configOptions;
+
+            function init(){
+                configOptions = {
+                    //Enter main title for application
+                    title : "Explore interactive web maps on ArcGIS Online",
+                    //Enter the subtitle for the application
+                    subtitle : "ArcGIS Online features thousands of Intelligent web maps that have been created and shared by users across the globe. This gallery presents a small sampling.",
+                    //Enter Portal group information
+                    group : {
+                        "owner" : "MapStoriesTeam",
+                        "title" : "AGOL maps for story map viewer"
+                    },
+                    //Enter the number of webmaps in the gallery at a given time
+                    numOfWebmaps : 6,
+                    //Enter the Portal URL
+                    portalURL : "http://www.arcgis.com",
+                    //Enter the delay used for switching maps (in milliseconds)
+                    delay : 5000,
+                    //Enter "true" to loop through maps or "false" to go through maps randomly after first loop
+                    loop : true
+                }
+                initMaps();
+                setUpBanner();
+            }
+            //show map on load
+            dojo.addOnLoad(init);
+        </script>
+
+        <!--Social Media Links-->
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+        <script type="text/javascript">stLight.options({publisher: "77225c91-2742-42f7-b1b4-bddda99a9bde"}); </script>
+        <!--END Social Media Links-->
+
+        <!--Google Analytics Start-->
+    	<script type="text/javascript">
+            var _gaq = _gaq || [];
+      	    _gaq.push(['_setAccount', 'UA-26529417-1']);
+      	    _gaq.push(['_trackPageview']);
+
+      	    (function() {
+       	        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      	    })();
+    	</script>
+    	<!--Google Analytics End-->
+    </head>
+    <body class="tundra">
+        <div id="mainWindow" dojotype="dijit.layout.BorderContainer" design="headline" gutters="false">
+
+            <div id="banner" dojotype="dijit.layout.BorderContainer" gutters="false" region="top">
+                <div id="headerArea" dojotype="dijit.layout.BorderContainer" region="top">
+                    <div id="titleText" dojotype="dijit.layout.ContentPane" region="center">
+                        <h1 id="title"></h1>
+                        <p id="subtitle"></p>
+                    </div><!--/titleText-->
+                    <div id="logoArea" dojotype="dijit.layout.ContentPane" region="right">
+          	               <div id="social"><a id="smLink" href="http://storymaps.esri.com" target="_blank">A story map </a><span class='st_facebook'></span><span class='st_twitter'></span></div>
+                            <div id="logo"><a id="logoLink" href="http://www.esri.com" target="_blank"><img id="logoImg" src="images/esriGlobeLogow.png" alt="Esri - Home"></a></div>
+                    </div><!--/logoArea-->
+                </div><!--/headerArea-->
+            </div><!--/banner-->
+
+            <div id="content" dojotype="dijit.layout.BorderContainer" gutters="false" region="center">
+                <div id="topRow" dojotype="dijit.layout.BorderContainer" gutters="false" region="top">
+                    <div id="topLeft" class="leftMap mapPane" dojotype="dijit.layout.ContentPane" region="left"></div>
+                    <div id="topCenter" class="centerMap mapPane" dojotype="dijit.layout.ContentPane" region="center"></div>
+                    <div id="topRight" class="rightMap mapPane" dojotype="dijit.layout.ContentPane" region="right"></div>
+                </div><!--topRow-->
+                <div id="bottomRow" dojotype="dijit.layout.BorderContainer" gutters="false" region="center">
+                    <div id="bottomLeft" class="leftMap mapPane" dojotype="dijit.layout.ContentPane" region="left"></div>
+                    <div id="bottomCenter" class="centerMap mapPane" dojotype="dijit.layout.ContentPane" region="center"></div>
+                    <div id="bottomRight" class="rightMap mapPane" dojotype="dijit.layout.ContentPane" region="right"></div>
+                </div><!--bottomRow-->
+            </div><!--content-->
+
+        </<div><!--/mainWindow-->
+    </body>
+</html>
