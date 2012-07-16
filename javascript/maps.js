@@ -14,7 +14,8 @@ var _portal,
     _mapsLoaded = 0,
     _mapDivs = [],
     _currentMap,
-	_loadingMap = false;
+	_loadingMap = false,
+    _currentMapIds = [];
 
 var getOppositeOrder = function(order){
     if (order == "Odd"){
@@ -93,9 +94,10 @@ var loadMaps = function(){
 
             var map = response.map;
             map.Loaded = false;
-			
+            $("#"+mapDiv).data("webmap",_webmapIds[i]);
+
 			var layers = response.itemInfo.itemData.operationalLayers;
-			
+
 			$("#"+mapDiv+"fullscreen").data("details","true");
 			if(response.itemInfo.item.description === null){
 				$("#"+mapDiv+"fullscreen").data("details","false");
@@ -115,7 +117,7 @@ var loadMaps = function(){
                     }
                 }
             });
-			
+
 			if(map.loaded){
           		initUI(layers,map,mapDiv);
 				if(map.extent.contains(map._mapParams.extent)){
@@ -190,6 +192,12 @@ var displayNewMap = function(){
 
     var map;
 
+    $(".mapPane").each(function(){
+        if($(this).data("webmap") == _webmapIds[webmap]){
+            mapDiv = $(this).attr("id");
+        }
+    });
+
     var mapDeferred = esri.arcgis.utils.createMap(_webmapIds[webmap],mapDiv+order,{
         mapOptions: {
             slider: true,
@@ -202,9 +210,10 @@ var displayNewMap = function(){
 
         map = response.map;
         map.Loaded = false;
-		
+        $("#"+mapDiv).data("webmap",_webmapIds[webmap]);
+
 		var layers = response.itemInfo.itemData.operationalLayers;
-			
+
 		$("#"+mapDiv+"fullscreen").data("details","true");
 		if(response.itemInfo.item.description === null){
 			$("#"+mapDiv+"fullscreen").data("details","false");
@@ -231,7 +240,7 @@ var displayNewMap = function(){
                 randomizeMaps();
             }
         });
-		
+
 		if(map.loaded){
           	initUI(layers,map,mapDiv);
 			if(map.extent.contains(map._mapParams.extent)){
@@ -248,7 +257,7 @@ var displayNewMap = function(){
         }
 
     });
-	
+
 	/*
     setTimeout(function() {
         if (map === undefined) {
@@ -267,9 +276,9 @@ var displayNewMap = function(){
 };
 
 var initUI = function initUI(layers,map,mapDiv){
-	
+
 	var layerInfo = buildLayersList(layers);
-	
+
 	if(layerInfo.length > 0){
 		$("#"+mapDiv+"fullscreen").data("legend","true");
     }
@@ -299,7 +308,7 @@ var buildLayersList = function(layers){
 					}
 				});
 			}
-		} 
+		}
 		else if (mapLayer.showLegend !== false) {
 			layerInfo = {
 				"layer": mapLayer.layerObject,
