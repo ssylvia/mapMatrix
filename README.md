@@ -40,28 +40,28 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     - **loop**: If loop is true, the application will loop through the map in order. If false, the application will randomly display a map from the group.
 3. To modify these options, change the following code
 `
-function init(){<br>
-    configOptions = {<br>
-        //Enter main title for application<br>
-        title : "<strong><em>This is a custom title for your application</em></strong>",<br>
-        //Enter the subtitle for the application<br>
-        subtitle : "<strong><em>This is a custom subtitlefor your application</em></strong>",<br>
-        //Enter Portal group information<br>
-        group : {<br>
-            "owner" : "<strong><em>Enter group owner here</em></strong>",<br>
-            "title" : "<strong><em>Enter group title here</em></strong>"<br>
-        },<br>
-        //Enter the number of webmaps in the gallery at a given time<br>
-        numOfWebmaps : <strong><em>6</em></strong>,<br>
-        //Enter the Portal URL<br>
-        portalURL : "<strong><em>http://www.arcgis.com</em></strong>",<br>
-        //Enter the delay used for switching maps (in milliseconds)<br>
-        delay : <strong><em>8000</em></strong>,<br>
-        //Enter "true" to loop through maps or "false" to go through maps randomly after first loop<br>
-        loop : <strong><em>true</em></strong><br>
-        }<br>
-    }<br>
-}
+function init(){\n
+    configOptions = {\n
+        //Enter main title for application\n
+        title : "***This is a custom title for your application***",\n
+        //Enter the subtitle for the application\n
+        subtitle : "***This is a custom subtitlefor your application***",\n
+        //Enter Portal group information\n
+        group : {\n
+            "owner" : "***Enter group owner here***",\n
+            "title" : "***Enter group title here***"\n
+        },\n
+        //Enter the number of webmaps in the gallery at a given time\n
+        numOfWebmaps : ***6***,\n
+        //Enter the Portal URL\n
+        portalURL : "***http://www.arcgis.com***",\n
+        //Enter the delay used for switching maps (in milliseconds)\n
+        delay : ***8000***,\n
+        //Enter "true" to loop through maps or "false" to go through maps randomly after first loop\n
+        loop : ***true***\n
+        }\n
+    }\n
+}\n
 `
 4. Save the file then test your [application](http://localhost/Chrome/index.html) and note that it now displays your application and if specified your custom title and subtitle.
 
