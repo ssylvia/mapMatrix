@@ -40,28 +40,28 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     - **loop**: If loop is true, the application will loop through the map in order. If false, the application will randomly display a map from the group.
 3. To modify these options, change the following code:
 
-    `function init(){
-        configOptions = {
-            //Enter main title for application
-            title : "***This is a custom title for your application***",
-            //Enter the subtitle for the application
-            subtitle : "***This is a custom subtitlefor your application***",
-            //Enter Portal group information
-            group : {
-                "owner" : "***Enter group owner here***",
-                "title" : "***Enter group title here***"
-            },
-            //Enter the number of webmaps in the gallery at a given time
-            numOfWebmaps : ***6***,
-            //Enter the Portal URL
-            portalURL : "***http://www.arcgis.com***",
-            //Enter the delay used for switching maps (in milliseconds)
-            delay : ***8000***,
-            //Enter "true" to loop through maps or "false" to go through maps randomly after first loop
-            loop : ***true***
-            }
-        }
-    }`
+    `function init(){`
+        `configOptions = {`
+            `//Enter main title for application`
+            `title : "***This is a custom title for your application***",`
+            `//Enter the subtitle for the application`
+            ``subtitle : "***This is a custom subtitlefor your application***",`
+            `//Enter Portal group information`
+            `group : {`
+                `"owner" : "***Enter group owner here***",`
+                `"title" : "***Enter group title here***"`
+            `},`
+            `//Enter the number of webmaps in the gallery at a given time`
+            `numOfWebmaps : ***6***,`
+            `//Enter the Portal URL`
+            `portalURL : "***http://www.arcgis.com***",`
+            `//Enter the delay used for switching maps (in milliseconds)`
+            `delay : ***8000***,`
+            `//Enter "true" to loop through maps or "false" to go through maps randomly after first loop`
+            `loop : ***true***`
+            `}`
+        `}`
+    `}`
     
 4. Save the file then test your [application](http://localhost/Chrome/index.html) and note that it now displays your application and if specified your custom title and subtitle.
 
