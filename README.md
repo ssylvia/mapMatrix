@@ -38,7 +38,8 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     - **portalURL**: Will be `http://www.arcgis.com` unless the group is listed under a organization or other portal.
     - **delay**: The time between each new map being loaded.
     - **loop**: If loop is true, the application will loop through the map in order. If false, the application will randomly display a map from the group.
-3. To modify these options, change the following code
+3. To modify these options, change the following code:
+
     function init(){
         configOptions = {
             //Enter main title for application
@@ -61,6 +62,7 @@ Now let's configure the application to use a different ArcGIS Online group, titl
             }
         }
     }
+    
 4. Save the file then test your [application](http://localhost/Chrome/index.html) and note that it now displays your application and if specified your custom title and subtitle.
 
 [Top](#-map-matrix)
