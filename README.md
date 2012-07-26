@@ -40,7 +40,8 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     - **loop**: If loop is true, the application will loop through the map in order. If false, the application will randomly display a map from the group.
 3. To modify these options, change the following code:
 
-    `function init(){
+    `
+    function init(){
 
         configOptions = {
 
@@ -62,10 +63,8 @@ Now let's configure the application to use a different ArcGIS Online group, titl
 
             },
 
-            //Enter the number of webmaps in the gallery at a given time
-            
-            numOfWebmaps : ***6***,
-            
+            //Enter the number of webmaps in the gallery at a given time            
+            numOfWebmaps : ***6***,            
             //Enter the Portal URL
             
             portalURL : "***http://www.arcgis.com***",
@@ -82,7 +81,8 @@ Now let's configure the application to use a different ArcGIS Online group, titl
         
         }
     
-    }`
+    }
+    `
 
 4. Save the file then test your [application](http://localhost/Chrome/index.html) and note that it now displays your application and if specified your custom title and subtitle.
 
