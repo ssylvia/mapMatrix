@@ -1,6 +1,6 @@
 # Map Matrix
 
-### A storytelling template provided by Esri
+###### A storytelling template provided by Esri
 
 
 This template provides a starting point for creating your web application. This easily configurable template allows you to define the ArcGIS Online group, title and subtitle for the site. This read-me file explains how to setup and configure the template to run on your web server. We've also provided a few tips on how to personalize the template by adding a company logo, customizing the content in the sidebar and adding an overview map.
@@ -10,8 +10,7 @@ This template provides a starting point for creating your web application. This 
 
 - [Install the web applciation](#-install-the-web-application)
 - [Configure the application](#-configure-the-application)
-- Specify map options
-- Personalize the application
+- [Personalize the application](#-personalize-the-application)
 
 
 ### Install the web application
@@ -39,9 +38,10 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     - **delay**: The time between each new map being loaded.
     - **loop**: If loop is true, the application will loop through the map in order. If false, the application will randomly display a map from the group.
 3. To modify these options, change the following code:
-Change only the code within asterisk  (*).
 
-        function init(){    
+    Change only the code within asterisk  (*).
+
+        function init(){
             configOptions = {
                 //Enter main title for application
                 title : " *This is a custom title for your application* ",
@@ -51,18 +51,36 @@ Change only the code within asterisk  (*).
                 group : {
                    "owner" : " *Enter group owner here* ",
                 },
-                //Enter the number of webmaps in the gallery at a given time            
-                numOfWebmaps : *6*,            
-                //Enter the Portal URL            
-                portalURL : " *http://www.arcgis.com* ",            
-                //Enter the delay used for switching maps (in milliseconds)            
-                delay : *8000*,            
+                //Enter the number of webmaps in the gallery at a given time
+                numOfWebmaps : *6*,
+                //Enter the Portal URL
+                portalURL : " *http://www.arcgis.com* ",
+                //Enter the delay used for switching maps (in milliseconds)
+                delay : *8000*,
                 //Enter "true" to loop through maps or "false" to go through maps randomly after first loop
                 loop : *true*
-                }        
-            }    
+                }
+            }
         }
 
 4. Save the file then test your [application](http://localhost/Chrome/index.html) and note that it now displays your application and if specified your custom title and subtitle.
+
+[Top](#-map-matrix)
+
+### Personalize the application
+
+
+####### Add a logo to the application
+
+You can personalize your site by adding a custom logo to the application's header next to the map title.
+
+1. First copy your custom logo to the images subdirectory.
+2. Open layout.css in a text editor.
+3. Find the section of code that has an id of "logoArea" and add the following attribute.
+
+        background:url(../images/yourImage.png) top left no-repeat;
+        
+4. Run the application and the custom logo should appear to the left of the title in the application header.
+
 
 [Top](#-map-matrix)
