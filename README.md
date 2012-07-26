@@ -40,7 +40,7 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     - **loop**: If loop is true, the application will loop through the map in order. If false, the application will randomly display a map from the group.
 3. To modify these options, change the following code:
 
-    function init(){
+    `function init(){
         configOptions = {
             //Enter main title for application
             title : "***This is a custom title for your application***",
@@ -61,7 +61,7 @@ Now let's configure the application to use a different ArcGIS Online group, titl
             loop : ***true***
             }
         }
-    }
+    }`
     
 4. Save the file then test your [application](http://localhost/Chrome/index.html) and note that it now displays your application and if specified your custom title and subtitle.
 
