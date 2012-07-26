@@ -43,6 +43,7 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     `
     
     function init(){
+    
         configOptions = {
             //Enter main title for application
             title : " *This is a custom title for your application* ",
