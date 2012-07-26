@@ -39,6 +39,7 @@ Now let's configure the application to use a different ArcGIS Online group, titl
     - **delay**: The time between each new map being loaded.
     - **loop**: If loop is true, the application will loop through the map in order. If false, the application will randomly display a map from the group.
 3. To modify these options, change the following code:
+Change only the code within asterisk  (*).
 
         function init(){    
             configOptions = {
