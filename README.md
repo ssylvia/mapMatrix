@@ -27,6 +27,6 @@ These instructions assume that you have a Web server like [Internet Information 
 
 ### Configure the application
 
-<span style='color:red'>Now let's configure the application to use a different ArcGIS Online group, title or subtitle.</span>
+Now let's *configure* the **application** to use a ***different*** ArcGIS Online group, title or subtitle.
 
 1. Every saved group on [ArcGIS Online](http://www.arcgis.com) has a unique identifier. To find the group id, navigate to ArcGIS.com, and find the group you want to display. If it is one of your maps, make sure it's shared with everyone (public). View the map details and copy the ID from the URL in the top of your browser. The section you need to copy is highlighted in yellow in the image below.
