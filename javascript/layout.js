@@ -22,12 +22,17 @@ $(document).ready(function(){
 		$(this).stop(true,true).fadeTo(100,"0.7");
 	});
 	$(".details").click(function(e) {
-        $.colorbox({
-			iframe:true,
-			href:"http://www.arcgis.com/home/item.html?id=" + $(this).data("webmap"),
-			width:"80%",
-			height:"80%"
-		});
+        if(navigator.userAgent.match(/iPad/i) != null){
+            window.open("http://www.arcgis.com/home/item.html?id=" + $(this).data("webmap"));
+        }
+        else{
+            $.colorbox({
+    			iframe:true,
+    			href:"http://www.arcgis.com/home/item.html?id=" + $(this).data("webmap"),
+    			width:"90%",
+    			height:"90%"
+    		});
+        }
     });
 	$(".fullscreen").click(function(e) {
         $.colorbox({
