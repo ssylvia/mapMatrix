@@ -47,11 +47,6 @@ dojo.ready(function(){
     resetLayout();
 });
 
-var setUpBanner = function(){
-    $("#title").html(configOptions.title);
-    $("#subtitle").html(configOptions.subtitle);
-};
-
 var resetLayout = function(){
     $(".loader").each(function(){
         var top = (($(this).parent().height()/2)-15);

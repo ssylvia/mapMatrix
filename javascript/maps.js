@@ -44,6 +44,9 @@ var queryWebmaps = function(){
         if (groups.results.length > 0){
             _group = groups.results[0];
 
+            $("#title").html(configOptions.title || _group.title);
+            $("#subtitle").html(configOptions.subtitle || _group.snippet);
+
             var params = {
                 q: 'type: Web Map',
                 num: configOptions.numOfWebmaps

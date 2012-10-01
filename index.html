@@ -33,9 +33,9 @@
             function init(){
                 configOptions = {
                     //Enter main title for application
-                    title : "Map Matrix: Explore interactive web maps on ArcGIS Online",
+                    title : "",
                     //Enter the subtitle for the application
-                    subtitle : "ArcGIS Online features thousands of Intelligent web maps that have been created and shared by users across the globe. This gallery presents a small sampling.",
+                    subtitle : "",
                     //Enter Portal group information
                     group : {
                         "owner" : "MapStoriesTeam",
@@ -46,12 +46,11 @@
                     //Enter the Portal URL
                     portalURL : "http://www.arcgis.com",
                     //Enter the delay used for switching maps (in milliseconds)
-                    delay : 8000,
+                    delay : 5000,
                     //Enter "true" to loop through maps or "false" to go through maps randomly after first loop
                     loop : true
                 }
                 initMaps();
-                setUpBanner();
             }
             //show map on load
             dojo.addOnLoad(init);
