@@ -37,7 +37,7 @@ var initMaps = function(){
 
 var queryWebmaps = function(){
     var params = {
-        q: 'title: ' + configOptions.group.title + ' AND owner: ' + configOptions.group.owner
+        q: 'id: ' + configOptions.group.id
     };
 
     _portal.queryGroups(params).then(function(groups){
