@@ -15,7 +15,8 @@ var _portal,
     _mapDivs = [],
     _currentMap,
 	_loadingMap = false,
-    _currentMapIds = [];
+    _currentMapIds = [],
+    _mapInitiating = false;
 
 var getOppositeOrder = function(order){
     if (order == "Odd"){
@@ -93,6 +94,10 @@ var loadMaps = function(){
 			ignorePopups:true
         });
 
+        var timeout = setTimeout(function() {
+            loadNewMap($("#"+mapDiv+"Odd"));
+        }, 10000);
+
         mapDeferred.addCallback(function(response){
 
             var map = response.map;
@@ -122,6 +127,7 @@ var loadMaps = function(){
             });
 
 			if(map.loaded){
+                clearTimeout(timeout);
           		initUI(layers,map,mapDiv);
 				if(map.extent.contains(map._mapParams.extent)){
 					map.setLevel(map.getLevel() + 1);
@@ -129,6 +135,7 @@ var loadMaps = function(){
         	}
         	else{
           		dojo.connect(map,"onLoad",function(){
+                    clearTimeout(timeout);
 					initUI(layers,map,mapDiv);
 					if(map.extent.contains(map._mapParams.extent)){
 						map.setLevel(map.getLevel() + 1);
@@ -137,6 +144,9 @@ var loadMaps = function(){
         	}
 
         });
+
+
+
     });
 };
 
@@ -155,127 +165,150 @@ var randomizeMaps = function(){
 };
 
 var displayNewMap = function(){
-    var webmap;
-    if (_mapsLoaded < _groupTotal){
-        webmap = _mapsLoaded;
-    }
-    else{
-        if (configOptions.loop === true){
-            _mapsLoaded = 0;
-            webmap = 0;
+    if (_mapInitiating === false){
+        _mapInitiating = true;
+        var webmap;
+        if (_mapsLoaded < _groupTotal){
+            webmap = _mapsLoaded;
         }
         else{
-            webmap = Math.floor(Math.random()*_groupTotal);
+            if (configOptions.loop === true){
+                _mapsLoaded = 0;
+                webmap = 0;
+            }
+            else{
+                webmap = Math.floor(Math.random()*_groupTotal);
+            }
         }
-    }
-    var mapDiv = _mapDivs[Math.floor(Math.random()*_mapDivs.length)];
-    if (_currentMap === mapDiv) {
-        if (_mapDivs.indexOf(mapDiv) < _mapDivs.length - 1){
-            mapDiv = _mapDivs[_mapDivs.indexOf(mapDiv) + 1];
+        var mapDiv = _mapDivs[Math.floor(Math.random()*_mapDivs.length)];
+        if (_currentMap === mapDiv) {
+            if (_mapDivs.indexOf(mapDiv) < _mapDivs.length - 1){
+                mapDiv = _mapDivs[_mapDivs.indexOf(mapDiv) + 1];
+            }
+            else{
+                mapDiv = _mapDivs[_mapDivs.indexOf(mapDiv) - 1];
+            }
+        }
+        $("#"+mapDiv+"loader").fadeIn();
+        $("#"+mapDiv+"blind").fadeTo("slow","0.1");
+
+        var order;
+        if ($("#"+mapDiv+"Odd").length > 0){
+            order = "Even";
         }
         else{
-            mapDiv = _mapDivs[_mapDivs.indexOf(mapDiv) - 1];
+            order = "Odd";
+
         }
-    }
-    $("#"+mapDiv+"loader").fadeIn();
-    $("#"+mapDiv+"blind").fadeTo("slow","0.1");
 
-    var order;
-    if ($("#"+mapDiv+"Odd").length > 0){
-        order = "Even";
-    }
-    else{
-        order = "Odd";
+        $("#"+mapDiv+getOppositeOrder(order)).css("z-index","10");
+        $("#"+mapDiv).append("<div id='"+mapDiv+order+"' class='map'></div>");
+        $("#"+mapDiv+order).css("z-index","0");
 
-    }
+        var map;
 
-    $("#"+mapDiv+getOppositeOrder(order)).css("z-index","10");
-    $("#"+mapDiv).append("<div id='"+mapDiv+order+"' class='map'></div>");
-    $("#"+mapDiv+order).css("z-index","0");
-
-    var map;
-
-    $(".mapPane").each(function(){
-        if($(this).data("webmap") == _webmapIds[webmap]){
-            mapDiv = $(this).attr("id");
-        }
-    });
-
-    var mapDeferred = esri.arcgis.utils.createMap(_webmapIds[webmap],mapDiv+order,{
-        mapOptions: {
-            slider: true,
-            nav: false
-        },
-		ignorePopups:true
-    });
-
-    mapDeferred.addCallback(function(response){
-
-        map = response.map;
-        map.Loaded = false;
-        $("#"+mapDiv).data("webmap",_webmapIds[webmap]);
-
-		var layers = response.itemInfo.itemData.operationalLayers;
-
-		$("#"+mapDiv+"fullscreen").data("details","true");
-		if(response.itemInfo.item.description === null){
-			$("#"+mapDiv+"fullscreen").data("details","false");
-		}
-
-        dojo.connect(dijit.byId("content"), 'resize', map,map.resize);
-
-        dojo.connect(map,"onUpdateEnd", function(){
-            if (map.Loaded === false){
-                map.Loaded = true;
-				_loadingMap = false;
-                $("#"+mapDiv+getOppositeOrder(order)).fadeOut("slow");
-                $("#"+mapDiv+"blind").fadeOut();
-                $("#"+mapDiv+"loader").fadeOut();
-				$("#"+mapDiv+"details").data("webmap",_webmapIds[webmap]);
-				$("#"+mapDiv+"fullscreen").data("webmap",_webmapIds[webmap]);
-                setTimeout(function(){
-                    $("#"+mapDiv+getOppositeOrder(order)).remove();
-                },500);
-
-                if (_mapsLoaded <= _groupTotal){
-                    _mapsLoaded++;
-                }
-                randomizeMaps();
+        $(".mapPane").each(function(){
+            if($(this).data("webmap") == _webmapIds[webmap]){
+                mapDiv = $(this).attr("id");
             }
         });
 
-		if(map.loaded){
-          	initUI(layers,map,mapDiv);
-			if(map.extent.contains(map._mapParams.extent)){
-				map.setLevel(map.getLevel() + 1);
-			}
-        }
-        else{
-        	dojo.connect(map,"onLoad",function(){
-				initUI(layers,map,mapDiv);
-				if(map.extent.contains(map._mapParams.extent)){
-					map.setLevel(map.getLevel() + 1);
-				}
-			});
-        }
+        var mapDeferred = esri.arcgis.utils.createMap(_webmapIds[webmap],mapDiv+order,{
+            mapOptions: {
+                slider: true,
+                nav: false
+            },
+    		ignorePopups:true
+        });
 
-    });
-
-	/*
-    setTimeout(function() {
-        if (map === undefined) {
-            console.log("Error loading map");
-            $("#"+mapDiv+"blind").fadeOut();
-            $("#"+mapDiv+"loader").fadeOut();
-             $("#"+mapDiv+order).remove();
-            if (_mapsLoaded <= _groupTotal){
-                _mapsLoaded++;
+        var timeout = setTimeout(function() {
+            if (map === undefined) {
+                $("#"+mapDiv+"blind").fadeOut();
+                $("#"+mapDiv+"loader").fadeOut();
+                 $("#"+mapDiv+order).remove();
+                if (_mapsLoaded <= _groupTotal){
+                    _mapsLoaded++;
+                }
+                _mapInitiating = false;
+                displayNewMap();
             }
-            displayNewMap();
-        }
-    }, 10000);
-	*/
+        }, 10000);
 
+        mapDeferred.addCallback(function(response){
+
+            map = response.map;
+            map.Loaded = false;
+            $("#"+mapDiv).data("webmap",_webmapIds[webmap]);
+
+    		var layers = response.itemInfo.itemData.operationalLayers;
+
+    		$("#"+mapDiv+"fullscreen").data("details","true");
+    		if(response.itemInfo.item.description === null){
+    			$("#"+mapDiv+"fullscreen").data("details","false");
+    		}
+
+            dojo.connect(dijit.byId("content"), 'resize', map,map.resize);
+
+            dojo.connect(map,"onUpdateEnd", function(){
+                if (map.Loaded === false){
+                    map.Loaded = true;
+    				_loadingMap = false;
+                    $("#"+mapDiv+getOppositeOrder(order)).fadeOut("slow");
+                    $("#"+mapDiv+"blind").fadeOut();
+                    $("#"+mapDiv+"loader").fadeOut();
+    				$("#"+mapDiv+"details").data("webmap",_webmapIds[webmap]);
+    				$("#"+mapDiv+"fullscreen").data("webmap",_webmapIds[webmap]);
+                    setTimeout(function(){
+                        $("#"+mapDiv+getOppositeOrder(order)).remove();
+                    },500);
+
+                    if (_mapsLoaded <= _groupTotal){
+                        _mapsLoaded++;
+                    }
+                    randomizeMaps();
+                }
+            });
+
+    		if(map.loaded){
+                clearTimeout(timeout);
+                _mapInitiating = false;
+              	initUI(layers,map,mapDiv);
+    			if(map.extent.contains(map._mapParams.extent)){
+    				map.setLevel(map.getLevel() + 1);
+    			}
+            }
+            else{
+            	dojo.connect(map,"onLoad",function(){
+                    _mapInitiating = false;
+                    clearTimeout(timeout);
+    				initUI(layers,map,mapDiv);
+    				if(map.extent.contains(map._mapParams.extent)){
+    					map.setLevel(map.getLevel() + 1);
+    				}
+    			});
+            }
+
+        });
+
+    }
+
+};
+
+var loadNewMap = function(mapDiv){
+    console.log("Error loading map");
+    _mapsLoaded++;
+    mapDiv.empty();
+    if (_mapsLoaded === _webmapIds.length && _nextQuery.start !== -1){
+    	_group.queryItems(_nextQuery).then(function(queryResponse){
+            _nextQuery = queryResponse.nextQueryParams;
+
+            dojo.forEach(queryResponse.results,function(item){
+                if (item.type === "Web Map"){
+                    _webmapIds.push(item.id);
+                }
+            });
+        });
+	}
 };
 
 var initUI = function initUI(layers,map,mapDiv){
